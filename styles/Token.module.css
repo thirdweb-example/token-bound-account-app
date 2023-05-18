@@ -87,6 +87,15 @@
   margin-bottom: 8px;
 }
 
+.walletContainer {
+  position: relative;
+    width: 100%;
+    min-width: 0px;
+    max-width: 100%;
+    top: 0px;
+    margin: 24px;
+}
+
 .imageContainer {
   position: relative;
 }

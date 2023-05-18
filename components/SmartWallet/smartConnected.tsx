@@ -32,7 +32,7 @@ const ClaimTokens = () => {
     useClaimToken(tokenContract);
 
   return (
-    <div className={style.listingContainer}>
+    <div className={style.walletContainer}>
       <h2>This is Your Token Bound Smart Wallet!</h2>
       {address ? (
         loadingBalance ? (
