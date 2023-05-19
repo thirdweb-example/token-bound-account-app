@@ -13,10 +13,11 @@ type Props = {
   emptyText?: string;
 };
 
+// NFTGrid component shows a grid of the connected wallet's owned NFTs.
 export default function NFTGrid({
   isLoading,
   nfts,
-  emptyText = "No NFTs found for this collection.",
+  emptyText = "No owned NFTS.",
 }: Props) {
   return (
     <div className={styles.nftGridContainer}>

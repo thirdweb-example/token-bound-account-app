@@ -15,8 +15,7 @@ import toast from "react-hot-toast";
 import toastStyle from "../util/toastConfig";
 
 /**
- * Landing page with a simple gradient background and a hero asset.
- * Free to customize as you see fit.
+ * The home page of the application.
  */
 const Home: NextPage = () => {
   const address = useAddress();

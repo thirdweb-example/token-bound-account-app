@@ -2,7 +2,6 @@ import {
   MediaRenderer,
   ThirdwebNftMedia,
   useAddress,
-  useContract,
   useWallet,
   Web3Button,
 } from "@thirdweb-dev/react";
@@ -33,14 +32,11 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
   );
   const [signer, setSigner] = useState<Signer>();
 
-  // Connect to NFT Drop Contracts
-  const { contract: nftDropContract, isLoading: loadingContract } =
-    useContract(nftDropAddress);
-
   // get the currently connected wallet
   const address = useAddress();
   const wallet = useWallet();
 
+  // create a smart wallet for the NFT
   const createSmartWallet = async (nft: NFT) => {
     if (nft && smartWalletAddress == null && address && wallet) {
       const smartWallet = newSmartWallet(nft);

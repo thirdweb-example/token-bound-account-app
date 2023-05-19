@@ -6,6 +6,7 @@ type Props = {
   height?: string;
 };
 
+// Skeleton component shows a loading animation for when data is loading.
 export default function Skeleton({ height, width }: Props) {
   return (
     <div
