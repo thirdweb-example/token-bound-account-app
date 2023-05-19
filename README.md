@@ -1,23 +1,27 @@
-## Getting Started
+## Token Bound Account Front End Template
 
-Create a project using this example:
+Create a front end for users to browse their owned NFTs & create token-bound smart wallets associated with these NFTs.
+Allow users to claim tokens to their token-bound wallets.
+## Using this template
+
+1. Deploy a Token Bound Account & Token Bound Account factory contract
+2. Clone this repository using the thirdweb [CLI](https://portal.thirdweb.com/cli)
+3. Create a thirdweb API key
+4. Paste your details into `const/constants.ts`
+
+### 1. Deploy Token Bound Account Implementation & Factory
+
+- Deploy a [Token Bound Account Factory](https://github.com/thirdweb-example/token-bound-account/blob/main/src/TokenBoundAccountFactory.sol): this enables the programmatic distribution of token-bound accounts for users. 
+- Deploy a [Token Bound Account](https://github.com/thirdweb-example/token-bound-account/blob/main/src/TokenBoundAccount.sol) implementation contract: This is the implementation contract in which your factory will deploy instances.
+### Cloning this repository
+
+Run the following command from your terminal:
 
 ```bash
-npx thirdweb create --template next-typescript-starter
+npx thirdweb create --template token-bound-account-app
 ```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-On `pages/_app.tsx`, you'll find our `ThirdwebProvider` wrapping your app, this is necessary for our [hooks](https://portal.thirdweb.com/react) and
-[UI Components](https://portal.thirdweb.com/ui-components) to work.
-
-### Deploy to IPFS
-
-Deploy a copy of your application to IPFS using the following command:
-
-```bash
-yarn deploy
-```
+_Note: This requires [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [Git](https://git-scm.com/downloads). [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) is also recommended._
 
 ## Learn More
 
@@ -32,4 +36,4 @@ You can check out [the thirdweb GitHub organization](https://github.com/thirdweb
 
 ## Join our Discord!
 
-For any questions, suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
+For any questions or suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
