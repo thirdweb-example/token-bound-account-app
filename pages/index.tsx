@@ -30,7 +30,7 @@ const Home: NextPage = () => {
           <h1>Your NFTs</h1>
           <p>
             Browse the NFTs inside your personal wallet, select one to connect a
-            token bound smart wallet & view it's balance.
+            token bound smart wallet & view it&apos;s balance.
           </p>
           <NFTGrid
             nfts={nfts}
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               contractAddress={nftDropAddress}
               action={async (contract) => await contract?.erc721.claim(1)}
               onSuccess={() => {
-                toast(`NFT Claimed!`, {
+                toast("NFT Claimed!", {
                   icon: "✅",
                   style: toastStyle,
                   position: "bottom-center",
