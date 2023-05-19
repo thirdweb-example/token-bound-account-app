@@ -4,12 +4,14 @@ import {
   useContract,
   useBalance,
   useClaimToken,
+  Web3Button,
 } from "@thirdweb-dev/react";
 import React from "react";
 import { activeChain, tokenAddress } from "../../const/constants";
 import { Signer } from "ethers";
 import style from "../../styles/Token.module.css";
-
+import toast from "react-hot-toast";
+import toastStyle from "../../util/toastConfig";
 interface ConnectedProps {
   signer: Signer | undefined;
 }
@@ -24,12 +26,8 @@ const SmartWalletConnected: React.FC<ConnectedProps> = ({ signer }) => {
 
 const ClaimTokens = () => {
   const address = useAddress();
-  const { contract: tokenContract } = useContract(tokenAddress, "token-drop");
-  //Token information
   const { data: tokenBalance, isLoading: loadingBalance } =
     useBalance(tokenAddress);
-  const { mutateAsync: claimToken, isLoading: loadingClaimToken } =
-    useClaimToken(tokenContract);
 
   return (
     <div className={style.walletContainer}>
@@ -40,18 +38,27 @@ const ClaimTokens = () => {
         ) : (
           <div className={style.pricingContainer}>
             <h2>Balance: {tokenBalance?.displayValue}</h2>
-            <button
-              onClick={async () =>
-                await claimToken({
-                  to: address,
-                  amount: 10,
-                })
-              }
-              disabled={loadingClaimToken}
-              className={style.card}
+            <Web3Button
+              contractAddress={tokenAddress}
+              action={async (contract) => await contract.erc20.claim(10)}
+              onSuccess={() => {
+                toast(`NFT Claimed!`, {
+                  icon: "✅",
+                  style: toastStyle,
+                  position: "bottom-center",
+                });
+              }}
+              onError={(e) => {
+                console.log(e);
+                toast(`NFT Claim Failed! Reason: ${e.message}`, {
+                  icon: "❌",
+                  style: toastStyle,
+                  position: "bottom-center",
+                });
+              }}
             >
               Claim 10 Tokens
-            </button>
+            </Web3Button>
           </div>
         )
       ) : null}

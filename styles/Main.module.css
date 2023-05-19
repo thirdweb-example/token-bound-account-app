@@ -67,4 +67,15 @@
   }
 }
 
-
+.container {
+  min-height: 99vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  contain: paint;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+  max-width: 100vw;
+}

@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import styles from "../styles/Main.module.css";
 import NFTGrid from "../components/NFT/NFTGrid";
 import {
@@ -13,6 +11,8 @@ import {
 } from "@thirdweb-dev/react";
 import { nftDropAddress } from "../const/constants";
 import Container from "../components/Container/Container";
+import toast from "react-hot-toast";
+import toastStyle from "../util/toastConfig";
 
 /**
  * Landing page with a simple gradient background and a hero asset.
@@ -23,16 +23,15 @@ const Home: NextPage = () => {
   const { contract: nftDropContract } = useContract(nftDropAddress, "nft-drop");
   const { data: nfts, isLoading } = useOwnedNFTs(nftDropContract, address);
 
-  //NFT information
-  const { mutate: claimNft, isLoading: nftClaimLoading } =
-    useClaimNFT(nftDropContract);
-
   return (
     <Container maxWidth="lg">
       {address ? (
-        <>
+        <div className={styles.container}>
           <h1>Your NFTs</h1>
-          <p>Browse which NFTs are available from the collection.</p>
+          <p>
+            Browse the NFTs inside your personal wallet, select one to connect a
+            token bound smart wallet & view it&apos;s balance.
+          </p>
           <NFTGrid
             nfts={nfts}
             isLoading={isLoading}
@@ -43,20 +42,32 @@ const Home: NextPage = () => {
           <div className={styles.btnContainer}>
             <Web3Button
               contractAddress={nftDropAddress}
-              action={async () =>
-                await claimNft({
-                  to: address,
-                  quantity: 1,
-                })
-              }
-              isDisabled={nftClaimLoading}
+              action={async (contract) => await contract?.erc721.claim(1)}
+              onSuccess={() => {
+                toast("NFT Claimed!", {
+                  icon: "✅",
+                  style: toastStyle,
+                  position: "bottom-center",
+                });
+              }}
+              onError={(e) => {
+                console.log(e);
+                toast(`NFT Claim Failed! Reason: ${e.message}`, {
+                  icon: "❌",
+                  style: toastStyle,
+                  position: "bottom-center",
+                });
+              }}
             >
               Claim NFT
             </Web3Button>
           </div>
-        </>
+        </div>
       ) : (
-        <ConnectWallet />
+        <div className={styles.container}>
+          <h2>Connect a personal wallet to view your owned NFTs</h2>
+          <ConnectWallet />
+        </div>
       )}
     </Container>
   );
