@@ -3,22 +3,16 @@ import {
   ThirdwebNftMedia,
   useAddress,
   useWallet,
-  Web3Button,
 } from "@thirdweb-dev/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../../components/Container/Container";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { NFT, ThirdwebSDK } from "@thirdweb-dev/sdk";
-import {
-  activeChain,
-  factoryAddress,
-  nftDropAddress,
-} from "../../../const/constants";
+import { activeChain, nftDropAddress } from "../../../const/constants";
 import styles from "../../../styles/Token.module.css";
-import toast, { Toaster } from "react-hot-toast";
-import toastStyle from "../../../util/toastConfig";
+import { Toaster } from "react-hot-toast";
 import { Signer } from "ethers";
-import newSmartWallet from "../../../util/SmartWallet";
+import newSmartWallet from "../../../components/SmartWallet/SmartWallet";
 import SmartWalletConnected from "../../../components/SmartWallet/smartConnected";
 
 type Props = {
@@ -37,22 +31,25 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
   const wallet = useWallet();
 
   // create a smart wallet for the NFT
-  const createSmartWallet = async (nft: NFT) => {
-    if (nft && smartWalletAddress == null && address && wallet) {
-      const smartWallet = newSmartWallet(nft);
-      console.log("personal wallet", address);
-      await smartWallet.connect({
-        personalWallet: wallet,
-      });
-      setSigner(await smartWallet.getSigner());
-      console.log("signer", signer);
-      setSmartWalletAddress(await smartWallet.getAddress());
-      console.log("smart wallet address", await smartWallet.getAddress());
-      return smartWallet;
-    } else {
-      console.log("smart wallet not created");
-    }
-  };
+  useEffect(() => {
+    const createSmartWallet = async (nft: NFT) => {
+      if (nft && smartWalletAddress == null && address && wallet) {
+        const smartWallet = newSmartWallet(nft);
+        console.log("personal wallet", address);
+        await smartWallet.connect({
+          personalWallet: wallet,
+        });
+        setSigner(await smartWallet.getSigner());
+        console.log("signer", signer);
+        setSmartWalletAddress(await smartWallet.getAddress());
+        console.log("smart wallet address", await smartWallet.getAddress());
+        return smartWallet;
+      } else {
+        console.log("smart wallet not created");
+      }
+    };
+    createSmartWallet(nft);
+  }, [nft, smartWalletAddress, address, wallet]);
 
   return (
     <>
@@ -82,31 +79,7 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
               <SmartWalletConnected signer={signer} />
             ) : (
               <div className={styles.btnContainer}>
-                <Web3Button
-                  contractAddress={factoryAddress}
-                  action={async () => await createSmartWallet(nft)}
-                  className={styles.btn}
-                  onSuccess={() => {
-                    toast(`Smart wallet connection success!`, {
-                      icon: "✅",
-                      style: toastStyle,
-                      position: "bottom-center",
-                    });
-                  }}
-                  onError={(e) => {
-                    console.log(e);
-                    toast(
-                      `Smart wallet connection failed! Reason: ${e.message}`,
-                      {
-                        icon: "❌",
-                        style: toastStyle,
-                        position: "bottom-center",
-                      }
-                    );
-                  }}
-                >
-                  Connect a Token Bound Smart Wallet
-                </Web3Button>
+                <p>Loading...</p>
               </div>
             )}
           </div>

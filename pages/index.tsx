@@ -7,7 +7,6 @@ import {
   useAddress,
   useContract,
   useOwnedNFTs,
-  useClaimNFT,
 } from "@thirdweb-dev/react";
 import { nftDropAddress } from "../const/constants";
 import Container from "../components/Container/Container";
