@@ -5,7 +5,7 @@ import {
   factoryAddress,
   activeChain,
   nftDropAddress,
-} from "../const/constants";
+} from "../../const/constants";
 import { SmartContract, NFT } from "@thirdweb-dev/sdk";
 import { WalletOptions } from "@thirdweb-dev/wallets";
 import type { SmartWalletConfig } from "@thirdweb-dev/wallets";

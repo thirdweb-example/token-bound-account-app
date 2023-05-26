@@ -1,9 +1,7 @@
 import {
   ThirdwebSDKProvider,
   useAddress,
-  useContract,
   useBalance,
-  useClaimToken,
   Web3Button,
 } from "@thirdweb-dev/react";
 import React from "react";
@@ -25,6 +23,7 @@ const SmartWalletConnected: React.FC<ConnectedProps> = ({ signer }) => {
   );
 };
 
+// This is the main component that shows the user's token bound smart wallet.
 const ClaimTokens = () => {
   const address = useAddress();
   const { data: tokenBalance, isLoading: loadingBalance } =
