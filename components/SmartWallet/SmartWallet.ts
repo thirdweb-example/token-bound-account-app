@@ -38,8 +38,14 @@ export default function newSmartWallet(token: NFT) {
           getExtraData(token),
         ]);
       }, // the factory method to call to create a new account
-      getAccountAddress: async (factory: SmartContract<BaseContract>) => {
-        return await factory.call("getAccountAddress", [getExtraData(token)]);
+      getAccountAddress: async (
+        factory: SmartContract<BaseContract>,
+        owner: string
+      ) => {
+        return await factory.call("getAddress", [
+          owner,
+          getExtraData(token)
+        ]);
       }, // the factory method to call to get the account address
     },
   };
