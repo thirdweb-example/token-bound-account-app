@@ -1,8 +1,8 @@
 import { Mumbai, Chain } from '@thirdweb-dev/chains'
 
 // your token bound factory address
-export const factoryAddress: string = '0x5a4aEa84863995AD59dECbEeFdbA138c8c064d5F'
-export const implementationAddress: string = "0xb2Cd41ad19331D02C466f924DDb1E111Ed7E5dC2"
+export const factoryAddress: string = '0x02101dfB77FDE026414827Fdc604ddAF224F0921'
+export const implementation: string = '0x20bA1a66073E0A7aC2f727C85244D1eb34c0ECFE'
 
 // Your thirdweb api key - you can get one at https://thirdweb.com/dashboard/api-keys
 export const TWApiKey: string =

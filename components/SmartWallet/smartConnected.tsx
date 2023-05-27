@@ -50,7 +50,7 @@ const ClaimTokens = () => {
               }}
               onError={(e) => {
                 console.log(e);
-                toast(`NFT Claim Failed! Reason: ${e.message}`, {
+                toast(`NFT Claim Failed! Reason: ${(e as any).reason}`, {
                   icon: "❌",
                   style: toastStyle,
                   position: "bottom-center",

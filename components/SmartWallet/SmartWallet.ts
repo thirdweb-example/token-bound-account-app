@@ -5,21 +5,12 @@ import {
   factoryAddress,
   activeChain,
   nftDropAddress,
+  implementation,
 } from "../../const/constants";
 import { SmartContract, NFT } from "@thirdweb-dev/sdk";
 import { WalletOptions } from "@thirdweb-dev/wallets";
 import type { SmartWalletConfig } from "@thirdweb-dev/wallets";
 import type { BaseContract } from "ethers";
-
-//ABI encode the address, chainId and tokenId for the token to bind the account to
-export const getExtraData = (token: NFT) => {
-  const data = ethers.utils.defaultAbiCoder.encode(
-    ["uint256", "address", "uint256"],
-    [activeChain.chainId, nftDropAddress, token.metadata.id]
-  );
-  console.log(data);
-  return data;
-};
 
 export default function newSmartWallet(token: NFT) {
   //Smart Wallet config object
@@ -33,18 +24,27 @@ export default function newSmartWallet(token: NFT) {
         factory: SmartContract<BaseContract>,
         owner: string
       ) => {
-        return await factory.prepare("createAccount", [
-          owner,
-          getExtraData(token),
+        const account = factory.prepare("createAccount", [
+          implementation,
+          activeChain.chainId,
+          nftDropAddress,
+          token.metadata.id,
+          0,
+          ethers.utils.toUtf8Bytes("")
         ]);
+        console.log("here", account);
+        return account;
       }, // the factory method to call to create a new account
       getAccountAddress: async (
         factory: SmartContract<BaseContract>,
         owner: string
       ) => {
-        return await factory.call("getAddress", [
-          owner,
-          getExtraData(token)
+        return factory.call("account", [
+          implementation,
+          activeChain.chainId,
+          nftDropAddress,
+          token.metadata.id,
+          0
         ]);
       }, // the factory method to call to get the account address
     },
