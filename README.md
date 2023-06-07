@@ -11,8 +11,8 @@ Allow users to claim tokens to their token-bound wallets.
 
 ### 1. Deploy Token Bound Account Implementation & Factory
 
-- Deploy a [Token Bound Account Factory](https://github.com/thirdweb-example/token-bound-account/blob/main/src/TokenBoundAccountFactory.sol): this enables the programmatic distribution of token-bound accounts for users. 
-- Deploy a [Token Bound Account](https://github.com/thirdweb-example/token-bound-account/blob/main/src/TokenBoundAccount.sol) implementation contract: This is the implementation contract in which your factory will deploy instances.
+- Deploy a [Token Bound Account Factory](https://github.com/thirdweb-example/token-gated-account/blob/main/src/TokenGatedAccountFactory.sol): this enables the programmatic distribution of token-bound accounts for users. 
+- Deploy a [Token Bound Account](https://github.com/thirdweb-example/token-gated-account/blob/main/src/TokenGatedAccount.sol) implementation contract: This is the implementation contract in which your factory will deploy instances.
 ### Cloning this repository
 
 Run the following command from your terminal:
